@@ -39,6 +39,10 @@
       "type": "string"
     }
   },
+  "variables": {
+    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1')]",
+    "storageAccountName2": "[concat(parameters('storageAccountNamePrefix'), '2')]"
+  },
   "resources": [
     {
       "apiVersion": "2015-06-15",
@@ -67,7 +71,8 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/',parameters('adVMName'),'-osdisk.vhd')]"
+              "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob, 'vhds/', parameters('adVMName'), '-osdisk.vhd')]"
+              //"uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/',parameters('adVMName'),'-osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -75,7 +80,8 @@
           "dataDisks": [
             {
               "vhd": {
-                "uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/', parameters('adDataDisk'),'-1.vhd')]"
+                "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob, 'vhds/', parameters('adDataDisk'), '-1.vhd')]"
+                //"uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/', parameters('adDataDisk'),'-1.vhd')]"
               },
               "name": "[concat(parameters('adVMName'),'-data-disk1')]",
               "caching": "None",
@@ -95,7 +101,8 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": "true",
-            "storageUri": "[concat('http://',parameters('storageAccountNamePrefix'),'2.blob.core.windows.net')]"
+            "storageUri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName2'))).primaryEndpoints.blob)]"
+            //"storageUri": "[concat('http://',parameters('storageAccountNamePrefix'),'2.blob.core.windows.net')]"
           }
         }
       },

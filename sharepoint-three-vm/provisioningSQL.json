@@ -42,6 +42,10 @@
       "type": "string"
     }
   },
+  "variables": {
+    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1')]",
+    "storageAccountName2": "[concat(parameters('storageAccountNamePrefix'), '2')]"
+  },
   "resources": [
     {
       "apiVersion": "2015-06-15",
@@ -70,7 +74,8 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/',parameters('sqlVMName'),'-osdisk.vhd')]"
+              "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob, 'vhds/', parameters('sqlVMName'), '-osdisk.vhd')]"
+              //"uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/',parameters('sqlVMName'),'-osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -78,7 +83,8 @@
           "dataDisks": [
             {
               "vhd": {
-                "uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/', parameters('sqlDataDisk'), '-1.vhd')]"
+                "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob, 'vhds/', parameters('sqlDataDisk'), '-1.vhd')]"
+                //"uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/', parameters('sqlDataDisk'), '-1.vhd')]"
               },
               "name": "[concat(parameters('sqlVMName'),'-data-disk1')]",
               "createOption": "empty",
@@ -88,7 +94,8 @@
             },
             {
               "vhd": {
-                "uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/', parameters('sqlLogDisk'), '-1.vhd')]"
+                "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob, 'vhds/', parameters('sqlLogDisk'), '-1.vhd')]"
+                //"uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/', parameters('sqlLogDisk'), '-1.vhd')]"
               },
               "name": "[concat(parameters('sqlVMName'),'-log-disk1')]",
               "createOption": "empty",
@@ -108,7 +115,8 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": "true",
-            "storageUri": "[concat('http://',parameters('storageAccountNamePrefix'),'2.blob.core.windows.net')]"
+            "storageUri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName2'))).primaryEndpoints.blob)]"
+            //"storageUri": "[concat('http://',parameters('storageAccountNamePrefix'),'2.blob.core.windows.net')]"
           }
         }
       }
