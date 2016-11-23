@@ -40,7 +40,7 @@
     }
   },
   "variables": {
-    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1dc1')]",
+    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1dc2')]",
     "storageAccountName2": "[concat(parameters('storageAccountNamePrefix'), '2')]"
   },
   "resources": [
@@ -50,7 +50,7 @@
       "name": "[parameters('adVMName')]",
       "location": "[parameters('location')]",
       "dependsOn": [
-            "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
+            "[resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
           ],
       "properties": {
         "hardwareProfile": {
