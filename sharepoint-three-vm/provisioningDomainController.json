@@ -42,7 +42,7 @@
   "variables": {
     "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1dc5')]",
     "storageAccountName2": "[concat(parameters('storageAccountNamePrefix'), '21')]",
-    "storageEndPoint": "[reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts/', variables('storageAccountName')), '2016-01-01').primaryEndpoints.blob]"
+    "storageEndPoint": "reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName')), '2016-01-01').primaryEndpoints.blob"
   },
   "resources": [
     {
