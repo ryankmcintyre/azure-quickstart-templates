@@ -40,7 +40,7 @@
     }
   },
   "variables": {
-    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1sp')]",
+    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1')]",
     "storageAccountName2": "[concat(parameters('storageAccountNamePrefix'), '2')]"
   },
   "resources": [
@@ -71,8 +71,7 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob, 'vhds/', parameters('spVMName'), '-osdisk.vhd')]"
-              //"uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/',parameters('spVMName'),'-osdisk.vhd')]"
+              "uri": "[concat('http://', parameters('storageAccountNamePrefix'), '1.blob.core.usgovcloudapi.net/vhds/', parameters('spVMName'), '-osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -80,8 +79,7 @@
           "dataDisks": [
             {
               "vhd": {
-                "uri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob, 'vhds/', parameters('spVMName'), '-', parameters('spDataDisk'), '-1.vhd')]"
-                //"uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/',parameters('spVMName'),'-', parameters('spDataDisk'),'-1.vhd')]"
+                "uri": "[concat('http://', parameters('storageAccountNamePrefix'), '1.blob.core.usgovcloudapi.net/vhds/', parameters('spVMName'), '-', parameters('spDataDisk'),'-1.vhd')]"
               },
               "name": "[concat(parameters('spVMName'),'-data-disk1')]",
               "createOption": "empty",
@@ -101,8 +99,7 @@
         "diagnosticsProfile": {
           "bootDiagnostics": {
             "enabled": "true",
-            "storageUri": "[concat(reference(resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName2'))).primaryEndpoints.blob)]"
-            //"storageUri": "[concat('http://',parameters('storageAccountNamePrefix'),'2.blob.core.windows.net')]"
+            "storageUri": "[concat('http://',parameters('storageAccountNamePrefix'),'2.blob.core.usgovcloudapi.net')]"
           }
         }
       }
