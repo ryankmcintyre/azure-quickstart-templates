@@ -49,9 +49,6 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[parameters('adVMName')]",
       "location": "[parameters('location')]",
-      "dependsOn": [
-            "[resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
-          ],
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('adVMSize')]"
