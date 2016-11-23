@@ -40,7 +40,7 @@
     }
   },
   "variables": {
-    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1dc')]",
+    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1dc1')]",
     "storageAccountName2": "[concat(parameters('storageAccountNamePrefix'), '2')]"
   },
   "resources": [
@@ -49,6 +49,9 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[parameters('adVMName')]",
       "location": "[parameters('location')]",
+      "dependsOn": [
+            "[resourceId('Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
+          ],
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('adVMSize')]"
@@ -85,8 +88,8 @@
               },
               "name": "[concat(parameters('adVMName'),'-data-disk1')]",
               "caching": "None",
-              "createOption": "empty",
-              "diskSizeGB": 1000,
+              "createOption": "Empty",
+              "diskSizeGB": "1000",
               "lun": 0
             }
           ]
@@ -108,7 +111,7 @@
       },
       "resources": [
         {
-          "type": "Microsoft.Compute/virtualMachines/extensions",
+          "type": "extensions",
           "name": "[concat(parameters('adVMName'),'/InstallDomainController')]",
           "apiVersion": "2015-06-15",
           "location": "[parameters('location')]",
