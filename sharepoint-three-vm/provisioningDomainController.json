@@ -40,7 +40,7 @@
     }
   },
   "variables": {
-    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1dc2')]",
+    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1dc3')]",
     "storageAccountName2": "[concat(parameters('storageAccountNamePrefix'), '2')]"
   },
   "resources": [
@@ -49,9 +49,9 @@
       "type": "Microsoft.Compute/virtualMachines",
       "name": "[parameters('adVMName')]",
       "location": "[parameters('location')]",
-      "dependsOn": [
-            "[resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
-          ],
+      //"dependsOn": [
+      //      "[resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts/', variables('storageAccountName'))]"
+      //    ],
       "properties": {
         "hardwareProfile": {
           "vmSize": "[parameters('adVMSize')]"
@@ -74,8 +74,8 @@
           "osDisk": {
             "name": "osdisk",
             "vhd": {
-              "uri": "[concat(reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob, 'vhds/', parameters('adVMName'), '-osdisk.vhd')]"
-              //"uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/',parameters('adVMName'),'-osdisk.vhd')]"
+              //"uri": "[concat(reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob, 'vhds/', parameters('adVMName'), '-osdisk.vhd')]"
+              "uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/',parameters('adVMName'),'-osdisk.vhd')]"
             },
             "caching": "ReadWrite",
             "createOption": "FromImage"
@@ -83,8 +83,8 @@
           "dataDisks": [
             {
               "vhd": {
-                "uri": "[concat(reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob, 'vhds/', parameters('adDataDisk'), '-1.vhd')]"
-                //"uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/', parameters('adDataDisk'),'-1.vhd')]"
+                //"uri": "[concat(reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob, 'vhds/', parameters('adDataDisk'), '-1.vhd')]"
+                "uri": "[concat('http://',parameters('storageAccountNamePrefix'),'1.blob.core.windows.net/vhds/', parameters('adDataDisk'),'-1.vhd')]"
               },
               "name": "[concat(parameters('adVMName'),'-data-disk1')]",
               "caching": "None",
