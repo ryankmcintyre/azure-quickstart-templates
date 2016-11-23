@@ -40,8 +40,9 @@
     }
   },
   "variables": {
-    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1dc3')]",
-    "storageAccountName2": "[concat(parameters('storageAccountNamePrefix'), '2')]"
+    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1dc4')]",
+    "storageAccountName2": "[concat(parameters('storageAccountNamePrefix'), '2')]",
+    "storageEndPoint": "reference(resourceId(resourceGroup().name, 'Microsoft.Storage/storageAccounts/', variables('storageAccountName'))).primaryEndpoints.blob"
   },
   "resources": [
     {
