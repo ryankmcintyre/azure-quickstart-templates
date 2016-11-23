@@ -43,7 +43,7 @@
     }
   },
   "variables": {
-    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1')]",
+    "storageAccountName": "[concat(parameters('storageAccountNamePrefix'), '1sql')]",
     "storageAccountName2": "[concat(parameters('storageAccountNamePrefix'), '2')]"
   },
   "resources": [
